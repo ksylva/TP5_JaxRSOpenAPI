@@ -1,31 +1,27 @@
 package fr.istic.taa.jaxrs.dao.generic;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+public abstract class AbstractJpaDao<T, K extends Serializable> implements IGenericDao<T, K> {
 
-public abstract class AbstractJpaDao<K, T extends Serializable> implements IGenericDao<K, T> {
-
-	private Class<T> clazz;
+	protected Class<T> theClass;
 
 	protected EntityManager entityManager;
 
-	public AbstractJpaDao() {
+	public AbstractJpaDao(Class<T> classToSet) {
 		this.entityManager = EntityManagerHelper.getEntityManager();
-	}
-
-	public void setClazz(Class<T> clazzToSet) {
-		this.clazz = clazzToSet;
+		this.theClass = classToSet;
 	}
 
 	public T findOne(K id) {
-		return entityManager.find(clazz, id);
+		return entityManager.find(theClass, id);
 	}
 
 	public List<T> findAll() {
-		return entityManager.createQuery("select e from " + clazz.getName() + " as e",clazz).getResultList();
+		return entityManager.createQuery("select e from " + theClass.getName() + " as e", theClass).getResultList();
 	}
 
 	public void save(T entity) {

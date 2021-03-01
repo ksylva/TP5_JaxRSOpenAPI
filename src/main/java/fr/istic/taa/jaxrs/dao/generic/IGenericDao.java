@@ -3,7 +3,7 @@ package fr.istic.taa.jaxrs.dao.generic;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IGenericDao<K, T extends Serializable> {
+public interface IGenericDao<T, K extends Serializable> {
  
    T findOne(final K id);
  

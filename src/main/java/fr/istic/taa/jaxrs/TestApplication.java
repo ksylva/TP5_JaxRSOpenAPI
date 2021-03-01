@@ -21,8 +21,7 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-import fr.istic.taa.jaxrs.rest.PetResource;
-import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import fr.istic.taa.jaxrs.rest.KanbanResource;
 
 public class TestApplication extends Application {
 
@@ -32,8 +31,9 @@ public class TestApplication extends Application {
 
         final Set<Class<?>> clazzes = new HashSet<Class<?>>();
 
-        clazzes.add(PetResource.class);
-        clazzes.add(OpenApiResource.class);
+        //clazzes.add(PetResource.class);
+        clazzes.add(KanbanResource.class);
+        //clazzes.add(OpenApiResource.class);
         
 
         return clazzes;
