@@ -1,9 +1,9 @@
 package fr.istic.taa.jaxrs.rest;
 
-import fr.istic.taa.jaxrs.dao.FicheDaoImpl;
+import fr.istic.taa.jaxrs.dao.CardDaoImpl;
 import fr.istic.taa.jaxrs.dao.KanbanBoardDaoImpl;
 import fr.istic.taa.jaxrs.dao.UserDaoImpl;
-import fr.istic.taa.jaxrs.domain.Fiche;
+import fr.istic.taa.jaxrs.domain.Card;
 import fr.istic.taa.jaxrs.domain.KanbanBoard;
 import fr.istic.taa.jaxrs.domain.Section;
 import fr.istic.taa.jaxrs.domain.User;
@@ -17,7 +17,7 @@ import java.util.List;
 public class KanbanResource implements ServiceJob {
     // Instantiate dao
     KanbanBoardDaoImpl kanbanDao = new KanbanBoardDaoImpl();
-    FicheDaoImpl ficheDao = new FicheDaoImpl();
+    CardDaoImpl ficheDao = new CardDaoImpl();
     UserDaoImpl userDao = new UserDaoImpl();
 
     /* Start kanban */
@@ -79,14 +79,14 @@ public class KanbanResource implements ServiceJob {
 
     /**
      * Add card on a board
-     * @param fiche to save
+     * @param card to save
      */
     @POST
     @Path("/card/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void addCard(Fiche fiche){
-        ficheDao.save(fiche);
+    public void addCard(Card card){
+        ficheDao.save(card);
     }
 
     /**
@@ -110,7 +110,7 @@ public class KanbanResource implements ServiceJob {
     @GET
     @Path("/card/{cardId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Fiche getCardById(@PathParam("cardId") Long id){
+    public Card getCardById(@PathParam("cardId") Long id){
         return ficheDao.findOne(id);
     }
 
@@ -121,7 +121,7 @@ public class KanbanResource implements ServiceJob {
     @GET
     @Path("/cards")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Fiche> getAllFiche(){
+    public List<Card> getAllFiche(){
         return ficheDao.findAll();
     }
 
@@ -134,7 +134,7 @@ public class KanbanResource implements ServiceJob {
     @Path("/card/edit")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Fiche editCard(Fiche card){
+    public Card editCard(Card card){
         return ficheDao.update(card);
     }
 
@@ -147,7 +147,7 @@ public class KanbanResource implements ServiceJob {
     @Path("/card/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Fiche deleteCard(Fiche card){
+    public Card deleteCard(Card card){
         return ficheDao.update(card);
     }
     /* End cards */

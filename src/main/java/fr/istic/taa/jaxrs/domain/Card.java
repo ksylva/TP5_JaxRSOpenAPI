@@ -1,14 +1,12 @@
 package fr.istic.taa.jaxrs.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity(name = "fiche")
-public class Fiche implements Serializable {
+public class Card implements Serializable {
 
     private long idFiche;
     private Date dateButoire;
@@ -16,18 +14,18 @@ public class Fiche implements Serializable {
     private String lieu;
     private String url;
     private String note;
-    private FicheUser user;
+    private CardUser user;
     private List<Tag> tags;
     private Section section;
     private boolean enabled;
 
-    public Fiche() {
+    public Card() {
         this.setEnabled(true);
     }
 
-    public Fiche(Date dateButoire,
-                 int duree, String lieu, String url,
-                 String note, FicheUser user, List<Tag> tags, Section section) {
+    public Card(Date dateButoire,
+                int duree, String lieu, String url,
+                String note, CardUser user, List<Tag> tags, Section section) {
         this.idFiche = getIdFiche();
         this.dateButoire = dateButoire;
         this.duree = duree;
@@ -128,7 +126,7 @@ public class Fiche implements Serializable {
 
     @Override
     public String toString() {
-        String str = "Fiche: \n" +
+        String str = "Card: \n" +
                 "Date butoire: " + dateButoire +'\n'+
                 "Duree: " + duree +"\n"+
                 "Lieu: " + lieu + "\n" +

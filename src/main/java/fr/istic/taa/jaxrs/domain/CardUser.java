@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity(name = "fiche_user")
-public class FicheUser {
+public class CardUser {
 
     private Long id;
     private Date dateDassignation;
@@ -14,7 +14,7 @@ public class FicheUser {
     private Date dateDebut;
     private Date dateFin;
 
-    public FicheUser() {
+    public CardUser() {
     }
 
     @Id

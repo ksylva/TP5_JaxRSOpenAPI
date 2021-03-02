@@ -1,6 +1,5 @@
 package fr.istic.taa.jaxrs.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -13,7 +12,7 @@ public class User implements Serializable {
     private long idUser;
     private String name;
     private boolean enabled;
-    private List<Fiche> fiches;
+    private List<Card> fiches;
 
     public User() {
         this.setEnabled(true);
@@ -44,11 +43,11 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "userList")
     @JsonManagedReference
-    public List<Fiche> getFiches() {
+    public List<Card> getFiches() {
         return fiches;
     }
 
-    public void setFiches(List<Fiche> fiches) {
+    public void setFiches(List<Card> fiches) {
         this.fiches = fiches;
     }
 
@@ -65,14 +64,14 @@ public class User implements Serializable {
         return name;
     }
 
-    private Fiche fiches2;
+    private Card fiches2;
 
     @ManyToOne(optional = false)
-    public Fiche getFiches2() {
+    public Card getFiches2() {
         return fiches2;
     }
 
-    public void setFiches2(Fiche fiches2) {
+    public void setFiches2(Card fiches2) {
         this.fiches2 = fiches2;
     }
 }

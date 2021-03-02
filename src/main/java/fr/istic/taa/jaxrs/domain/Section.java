@@ -11,7 +11,7 @@ public class Section implements Serializable {
 
     private long idSection;
     private String libelle;
-    private List<Fiche> fiches;
+    private List<Card> fiches;
     private KanbanBoard kanbanBoard;
 
     public Section() {
@@ -41,11 +41,11 @@ public class Section implements Serializable {
     }
 
     @OneToMany(mappedBy = "section")
-    public List<Fiche> getFiches() {
+    public List<Card> getFiches() {
         return fiches;
     }
 
-    public void setFiches(List<Fiche> fiches) {
+    public void setFiches(List<Card> fiches) {
         this.fiches = fiches;
     }
 
