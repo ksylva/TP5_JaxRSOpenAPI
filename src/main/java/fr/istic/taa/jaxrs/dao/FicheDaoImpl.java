@@ -35,14 +35,15 @@ public class FicheDaoImpl extends AbstractJpaDao<Fiche, Long> {
      * @param card card to assign
      * @param user user which receive card
      */
-    public /*Fiche*/ void attachUserToCard(Fiche card, User user){
+    public Fiche attachUserToCard(Long id, User user){
+        Fiche card = findOne(id);
         card.setUser(user);
-        user.getFiches().add(card);
+        //user.getFiches().add(card);
         EntityTransaction t = super.entityManager.getTransaction();
         t.begin();
-        /*Fiche updatedCard = */entityManager.merge(card);
-        entityManager.merge(user);
+        Fiche updatedCard = entityManager.merge(card);
+        //entityManager.merge(user);
         t.commit();
-        //return updatedCard;
+        return updatedCard;
     }
 }

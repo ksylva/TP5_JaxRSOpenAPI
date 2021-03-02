@@ -2,6 +2,9 @@ package fr.istic.taa.jaxrs.dao;
 
 import fr.istic.taa.jaxrs.dao.generic.AbstractJpaDao;
 import fr.istic.taa.jaxrs.domain.KanbanBoard;
+import fr.istic.taa.jaxrs.domain.Section;
+
+import javax.persistence.EntityTransaction;
 
 public class KanbanBoardDaoImpl extends AbstractJpaDao<KanbanBoard, Long> {
     public KanbanBoardDaoImpl() {
@@ -49,4 +52,14 @@ public class KanbanBoardDaoImpl extends AbstractJpaDao<KanbanBoard, Long> {
         return em.createQuery(query, KanbanBoard.class)
                 .getResultList();
     }*/
+
+    public void addSection(Long id, Section section){
+        KanbanBoard board = findOne(id);
+        section.setKanbanBoard(board);
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(section);
+        transaction.commit();
+    }
 }

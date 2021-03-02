@@ -1,6 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,17 +16,18 @@ public class Fiche implements Serializable {
     private String lieu;
     private String url;
     private String note;
-    private User user;
+    private FicheUser user;
     private List<Tag> tags;
     private Section section;
     private boolean enabled;
 
     public Fiche() {
+        this.setEnabled(true);
     }
 
     public Fiche(Date dateButoire,
                  int duree, String lieu, String url,
-                 String note, User user, List<Tag> tags, Section section) {
+                 String note, FicheUser user, List<Tag> tags, Section section) {
         this.idFiche = getIdFiche();
         this.dateButoire = dateButoire;
         this.duree = duree;
@@ -88,9 +89,9 @@ public class Fiche implements Serializable {
         this.note = note;
     }
 
-    @ManyToOne
-    @JsonIgnore
-    public User getUser() {
+    @OneToMany
+    //@JsonBackReference
+    public List<User> getUser() {
         return user;
     }
 

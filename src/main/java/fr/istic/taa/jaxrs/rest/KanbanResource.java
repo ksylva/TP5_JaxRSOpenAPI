@@ -22,13 +22,16 @@ public class KanbanResource implements ServiceJob {
 
     /* Start kanban */
 
+    /**
+     * Save a board
+     * @param kanban to save
+     */
     @POST
     @Path("/board/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public void addKanban(KanbanBoard kanban) {
         System.out.println("Le tableau est : "+kanban.getName());
-        //kanban.addSection(kanban.getSections());
         List<Section> section = kanban.getSections();
         for (Section s : section){
             s.setKanbanBoard(kanban);
@@ -36,6 +39,23 @@ public class KanbanResource implements ServiceJob {
         kanbanDao.save(kanban);
     }
 
+    /**
+     * Add a section to kanban board
+     * @param id of kanban board which must receive new section
+     * @param section to add
+     */
+    @POST
+    @Path("/board/{tableId}/add-section")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void addSectionToBoard(@PathParam("tableId") Long id, Section section){
+        kanbanDao.addSection(id, section);
+    }
+
+    /**
+     * Provide the board which has id's given
+     * @param tableId of board
+     * @return the board with id = tableId
+     */
     @GET
     @Path("/board/{tableId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -43,6 +63,10 @@ public class KanbanResource implements ServiceJob {
         return kanbanDao.findOne(tableId);
     }
 
+    /**
+     * Provide all kanban board
+     * @return the list of kanban boards
+     */
     @GET
     @Path("/board")
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,6 +77,10 @@ public class KanbanResource implements ServiceJob {
 
     /* Start card */
 
+    /**
+     * Add card on a board
+     * @param fiche to save
+     */
     @POST
     @Path("/card/add")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -61,30 +89,74 @@ public class KanbanResource implements ServiceJob {
         ficheDao.save(fiche);
     }
 
+    /**
+     * Assign a card to an user
+     * @param id of card to edit
+     * @param user to assign card
+     */
     @PUT
-    @Path("/card/user-assign")
+    @Path("/card/{cardId}/user-assign")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void addUserToACard(Fiche card, User user){
-        ficheDao.attachUserToCard(card, user);
+    public void addUserToACard(@PathParam("cardId") Long id, User user){
+        ficheDao.attachUserToCard(id, user);
     }
 
+    /**
+     * Provide the card which id's given
+     * @param id of card
+     * @return the card with id = cardId
+     */
     @GET
     @Path("/card/{cardId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Fiche getFicheById(@PathParam("cardId") Long id){
+    public Fiche getCardById(@PathParam("cardId") Long id){
         return ficheDao.findOne(id);
     }
 
+    /**
+     * Provide all cards
+     * @return the list of saved cards
+     */
     @GET
     @Path("/cards")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Fiche> getAllFiche(){
         return ficheDao.findAll();
     }
+
+    /**
+     * Edit a card
+     * @param card to modify
+     * @return the modified card
+     */
+    @PUT
+    @Path("/card/edit")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Fiche editCard(Fiche card){
+        return ficheDao.update(card);
+    }
+
+    /**
+     * Delete (disable) a card
+     * @param card to disable
+     * @return the disabled card
+     */
+    @PUT
+    @Path("/card/delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Fiche deleteCard(Fiche card){
+        return ficheDao.update(card);
+    }
     /* End cards */
     /* Start user */
 
+    /**
+     * Add an user to system
+     * @param user to save
+     */
     @POST
     @Path("/user/add")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -92,6 +164,11 @@ public class KanbanResource implements ServiceJob {
         userDao.save(user);
     }
 
+    /**
+     * Provide the user which id's given
+     * @param id for user
+     * @return the user with id = userId
+     */
     @GET
     @Path("/user/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -99,6 +176,10 @@ public class KanbanResource implements ServiceJob {
         return userDao.findOne(id);
     }
 
+    /**
+     * Provide all users saved in system
+     * @return the list of users
+     */
     @GET
     @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
