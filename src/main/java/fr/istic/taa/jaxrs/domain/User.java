@@ -41,9 +41,8 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "card"/*cascade = CascadeType.ALL*/)
-    //@JoinColumn(name = "user_id")
-    //@JsonManagedReference
+    @OneToMany(mappedBy = "card")
+    @JsonManagedReference
     public List<CardUser> getFiches() {
         return fiches;
     }

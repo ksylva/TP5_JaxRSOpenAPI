@@ -68,7 +68,7 @@ public class KanbanResource implements ServiceJob {
      * @return the list of kanban boards
      */
     @GET
-    @Path("/board")
+    @Path("/boards")
     @Produces(MediaType.APPLICATION_JSON)
     public List<KanbanBoard> getAllKanban() {
         return kanbanDao.findAll();
@@ -174,7 +174,12 @@ public class KanbanResource implements ServiceJob {
     @Path("/user/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     public User getUserById(@PathParam("userId") Long id){
-        return userDao.findOne(id);
+        User user = userDao.findOne(id);
+        //UserDto userDto = userDao.getUserWithCards(id);
+        //System.err.println("L'user dto is: "+userDto);
+        //userDto.setUsername(user.getName());
+        //userDto.setCards(user.getFiches());
+        return user;
     }
 
     /**
@@ -187,5 +192,27 @@ public class KanbanResource implements ServiceJob {
     public List<User> getAllUser(){
         return userDao.findAll();
     }
+
+    /**
+     * Update an user
+     * @param user to update
+     * @return updated user
+     */
+    @PUT
+    @Path("/user/edit")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public User editUser(User user){ return userDao.update(user); }
+
+    /**
+     * Delete (disable) an user
+     * @param user to disable
+     * @return the disabled user
+     */
+    @PUT
+    @Path("/user/delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public User deleteUser(User user){ return userDao.update(user); }
     /* End user */
 }

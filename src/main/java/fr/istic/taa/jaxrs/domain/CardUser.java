@@ -66,7 +66,7 @@ public class CardUser {
     }
 
     @ManyToOne
-    //@JsonBackReference
+    @JsonBackReference("userRef")
     public User getUser() {
         return user;
     }
@@ -76,7 +76,7 @@ public class CardUser {
     }
 
     @ManyToOne
-    //@JsonBackReference
+    @JsonBackReference("cardRef")
     public Card getCard() {
         return card;
     }

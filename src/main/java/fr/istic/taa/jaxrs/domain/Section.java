@@ -1,5 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -41,6 +42,7 @@ public class Section implements Serializable {
     }
 
     @OneToMany(mappedBy = "section")
+    @JsonBackReference
     public List<Card> getFiches() {
         return fiches;
     }

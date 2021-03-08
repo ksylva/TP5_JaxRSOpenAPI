@@ -6,7 +6,7 @@ import java.util.List;
 
 public class UserDto {
     private String username;
-    private List<Card> cards;
+    private List<CardDto> cards;
 
     public String getUsername() {
         return username;
@@ -16,11 +16,19 @@ public class UserDto {
         this.username = username;
     }
 
-    public List<Card> getCards() {
+    public List<CardDto> getCards() {
         return cards;
     }
 
-    public void setCards(List<Card> cards) {
+    public void setCards(List<CardDto> cards) {
         this.cards = cards;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "username='" + username + '\'' +
+                ", cards=" + cards +
+                '}';
     }
 }

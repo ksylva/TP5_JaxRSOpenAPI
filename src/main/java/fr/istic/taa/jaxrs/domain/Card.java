@@ -1,5 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -89,9 +90,8 @@ public class Card implements Serializable {
         this.note = note;
     }
 
-    @OneToMany(mappedBy = "user"/*cascade = CascadeType.ALL*/)
-    //@JoinColumn(name = "card_id")
-    //@JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     public List<CardUser> getUser() {
         return user;
     }
@@ -111,6 +111,7 @@ public class Card implements Serializable {
 
     @ManyToOne
     //@JsonIgnore()
+    @JsonManagedReference
     public Section getSection() {
         return section;
     }
