@@ -1,12 +1,11 @@
 package fr.istic.taa.jaxrs.rest;
 
 import fr.istic.taa.jaxrs.dao.CardDaoImpl;
+import fr.istic.taa.jaxrs.dao.CardUserDaoImpl;
 import fr.istic.taa.jaxrs.dao.KanbanBoardDaoImpl;
 import fr.istic.taa.jaxrs.dao.UserDaoImpl;
-import fr.istic.taa.jaxrs.domain.Card;
-import fr.istic.taa.jaxrs.domain.KanbanBoard;
-import fr.istic.taa.jaxrs.domain.Section;
-import fr.istic.taa.jaxrs.domain.User;
+import fr.istic.taa.jaxrs.domain.*;
+import fr.istic.taa.jaxrs.dto.UserDto;
 import fr.istic.taa.jaxrs.service.ServiceJob;
 
 import javax.ws.rs.*;
@@ -19,6 +18,7 @@ public class KanbanResource implements ServiceJob {
     KanbanBoardDaoImpl kanbanDao = new KanbanBoardDaoImpl();
     CardDaoImpl ficheDao = new CardDaoImpl();
     UserDaoImpl userDao = new UserDaoImpl();
+    CardUserDaoImpl cardUserDao = new CardUserDaoImpl();
 
     /* Start kanban */
 
@@ -91,15 +91,16 @@ public class KanbanResource implements ServiceJob {
 
     /**
      * Assign a card to an user
-     * @param id of card to edit
-     * @param user to assign card
+     * @param cardId the card to assign
+     * @param userId the user to assign
+     * @param cardUser the assignment infos
      */
     @PUT
-    @Path("/card/{cardId}/user-assign")
+    @Path("/card/{cardId}/{userId}/user-assign")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void addUserToACard(@PathParam("cardId") Long id, User user){
-        ficheDao.attachUserToCard(id, user);
+    public void addUserToACard(@PathParam("cardId") Long cardId, @PathParam("userId") Long userId, CardUser cardUser){
+        cardUserDao.joinUserAndCard(userId, cardId, cardUser);
     }
 
     /**

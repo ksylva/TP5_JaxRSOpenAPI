@@ -9,7 +9,5 @@ public class UserDaoImpl extends AbstractJpaDao<User, Long> {
         super(User.class);
     }
 
-    public User attachCardToUser(Card card){
-        return null;
-    }
+
 }

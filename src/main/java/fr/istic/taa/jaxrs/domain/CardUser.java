@@ -1,8 +1,11 @@
 package fr.istic.taa.jaxrs.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity(name = "fiche_user")
@@ -13,8 +16,11 @@ public class CardUser {
     private Date dateRetrait;
     private Date dateDebut;
     private Date dateFin;
+    private User user;
+    private Card card;
 
     public CardUser() {
+        this.setDateDassignation(new Date());
     }
 
     @Id
@@ -49,5 +55,33 @@ public class CardUser {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public Date getDateRetrait() {
+        return dateRetrait;
+    }
+
+    public void setDateRetrait(Date dateRetrait) {
+        this.dateRetrait = dateRetrait;
+    }
+
+    @ManyToOne
+    //@JsonBackReference
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @ManyToOne
+    //@JsonBackReference
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 }

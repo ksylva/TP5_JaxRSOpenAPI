@@ -12,14 +12,14 @@ public class User implements Serializable {
     private long idUser;
     private String name;
     private boolean enabled;
-    private List<Card> fiches;
+    private List<CardUser> fiches;
 
     public User() {
         this.setEnabled(true);
     }
 
-    public User(long idUser, String name) {
-        this.idUser = idUser;
+    public User(String name) {
+        this.idUser = this.getIdUser();
         this.name = name;
     }
 
@@ -41,13 +41,14 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "userList")
-    @JsonManagedReference
-    public List<Card> getFiches() {
+    @OneToMany(mappedBy = "card"/*cascade = CascadeType.ALL*/)
+    //@JoinColumn(name = "user_id")
+    //@JsonManagedReference
+    public List<CardUser> getFiches() {
         return fiches;
     }
 
-    public void setFiches(List<Card> fiches) {
+    public void setFiches(List<CardUser> fiches) {
         this.fiches = fiches;
     }
 
@@ -64,7 +65,7 @@ public class User implements Serializable {
         return name;
     }
 
-    private Card fiches2;
+    /*private Card fiches2;
 
     @ManyToOne(optional = false)
     public Card getFiches2() {
@@ -73,5 +74,5 @@ public class User implements Serializable {
 
     public void setFiches2(Card fiches2) {
         this.fiches2 = fiches2;
-    }
+    }*/
 }

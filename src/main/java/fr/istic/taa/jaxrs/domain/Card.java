@@ -1,5 +1,7 @@
 package fr.istic.taa.jaxrs.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +16,7 @@ public class Card implements Serializable {
     private String lieu;
     private String url;
     private String note;
-    private CardUser user;
+    private List<CardUser> user;
     private List<Tag> tags;
     private Section section;
     private boolean enabled;
@@ -25,7 +27,7 @@ public class Card implements Serializable {
 
     public Card(Date dateButoire,
                 int duree, String lieu, String url,
-                String note, CardUser user, List<Tag> tags, Section section) {
+                String note, List<CardUser> user, List<Tag> tags, Section section) {
         this.idFiche = getIdFiche();
         this.dateButoire = dateButoire;
         this.duree = duree;
@@ -87,13 +89,14 @@ public class Card implements Serializable {
         this.note = note;
     }
 
-    @OneToMany
-    //@JsonBackReference
-    public List<User> getUser() {
+    @OneToMany(mappedBy = "user"/*cascade = CascadeType.ALL*/)
+    //@JoinColumn(name = "card_id")
+    //@JsonManagedReference
+    public List<CardUser> getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(List<CardUser> user) {
         this.user = user;
     }
 
