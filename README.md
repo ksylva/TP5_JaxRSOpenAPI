@@ -5,6 +5,10 @@
  + MySQL Server version 8
  + Maven
 
+## Install
+1. Cloner le projet
+2. Lancer server rest à partir de la classe RestServer
+
 ## Endpoints
 
 ### Tableaux
@@ -22,7 +26,7 @@
 ### Fiches
   + [POST] http://localhost:8080/kanban/card/add : Ajoute une fiche
   + [GET] http://localhost:8080/kanban/card/{id} : Retourne la fiche ayant l'id
-    [GET] http://localhost:8080/kanban/cards : Liste toutes les fiches
+  + [GET] http://localhost:8080/kanban/cards : Liste toutes les fiches
   + [PUT] http://localhost:8080/kanban/card/{cardId}/{userId}/user-assign: Assigne une fiche à un user
   + [PUT] http://localhost:8080/kanban/card/delete : Supprime (en sens de cacher à l'utilisateur) une fiche
   + [PUT] http://localhost:8080/kanban/card/edit : Modifie une fiche
